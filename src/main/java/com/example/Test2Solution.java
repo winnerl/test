@@ -6,9 +6,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * 问题1解决
+ * 问题2解决
  */
-public class TestSolution {
+public class Test2Solution {
 
     public Map<Integer, char[]> map = new HashMap<>();
 
@@ -25,21 +25,24 @@ public class TestSolution {
         map.put(9, new char[]{'w', 'x', 'y', 'z'});
     }
 
-    public List<String> getResult(Integer[] params) {
+    public List<String> getResult(Integer params) {
         List<String> result = new ArrayList<>();
-        if (params.length == 0) {
+        String paramSTr = params.toString();
+        char[] digit = paramSTr.toCharArray();
+        if (digit.length == 0) {
             return result;
         }
-        combine(params, result, "", 0);
+
+        combine(digit, result, "", 0);
         return result;
     }
 
-    public void combine(Integer[] digits, List<String> result, String beforString, int nowIndex) {
+    public void combine(char[] digits, List<String> result, String beforString, int nowIndex) {
 
         int length = digits.length;
 
         if (length == 1) {
-            char[] nowChars = getCharsByNum(digits[nowIndex]);
+            char[] nowChars = getCharsByNum(Integer.parseInt( String.valueOf(digits[nowIndex])));
             for (int i = 0; i < nowChars.length; i++) {
                 char nowChar = nowChars[i];
                 result.add(String.valueOf(nowChar));
@@ -50,21 +53,20 @@ public class TestSolution {
             result.add(beforString);
             return;
         }
-
-        char[] nowChars = getCharsByNum(digits[nowIndex]);
+        char[] nowChars = getCharsByNum(Integer.parseInt( String.valueOf(digits[nowIndex])));
         for (int i = 0; i < nowChars.length; i++) {
             combine(digits, result, beforString + nowChars[i], nowIndex + 1);
         }
 
     }
 
-    public char[] getCharsByNum(Integer num) {
+    public char[] getCharsByNum( Integer num) {
         return map.get(num);
     }
 
     public static void main(String[] args) {
-        TestSolution testSolution = new TestSolution();
-        Integer data[] = {0};
+        Test2Solution testSolution = new Test2Solution();
+        Integer data= 22;
         List<String> result = testSolution.getResult(data);
         System.out.println(result);
     }
